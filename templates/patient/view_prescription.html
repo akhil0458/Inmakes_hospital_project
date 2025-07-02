@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h3>Prescription Details</h3>
+    <table class="table table-bordered mt-3">
+        <tr><th>Date Issued</th><td>{{ prescription.date_issued }}</td></tr>
+        <tr><th>Doctor</th><td>Dr. {{ prescription.doctor.user.get_full_name }}</td></tr>
+        <tr><th>Medication</th><td>{{ prescription.medication_name }}</td></tr>
+        <tr><th>Dosage</th><td>{{ prescription.dosage }}</td></tr>
+        <tr><th>Frequency</th><td>{{ prescription.frequency }}</td></tr>
+        <tr><th>Duration</th><td>{{ prescription.duration }}</td></tr>
+        <tr><th>Notes</th><td>{{ prescription.notes|default:"None" }}</td></tr>
+    </table>
+    <a href="{% url 'patient_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}

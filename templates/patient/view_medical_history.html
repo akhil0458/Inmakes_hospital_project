@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Medical History</title>
+</head>
+<body>
+    <h1>Your Medical History</h1>
+    <ul>
+        {% for record in medical_history %}
+            <li>
+                Diagnosis: {{ record.diagnosis }}<br>
+                Medications: {{ record.medications }}<br>
+                Allergies: {{ record.allergies }}<br>
+                Treatment History: {{ record.treatment_history }}<br>
+            </li>
+        {% empty %}
+            <li>No records found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

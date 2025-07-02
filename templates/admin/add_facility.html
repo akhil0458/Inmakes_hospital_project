@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Add New Facility</h2>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Add Facility</button>
+        <a href="{% url 'manage_facilities' %}" class="btn btn-secondary">Back</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Announcements - Sanjeevani Hospital{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center mb-5">
+    <h1 class="text-primary">Hospital Announcements</h1>
+    <p class="lead">Stay updated with the latest news and updates from Sanjeevani Hospital.</p>
+  </div>
+
+  {% if announcements %}
+    <div class="row">
+      {% for announcement in announcements %}
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title text-success">{{ announcement.title }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ announcement.date|date:"F j, Y" }}</h6>
+              <p class="card-text">{{ announcement.content|truncatewords:40 }}</p>
+              {% if announcement.link %}
+                <a href="{{ announcement.link }}" class="card-link text-primary" target="_blank">Read More</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center">
+      No announcements at the moment. Please check back later.
+    </div>
+  {% endif %}
+
+  <div class="text-center mt-4">
+    <a href="{% url 'home' %}" class="btn btn-secondary">← Back to home</a>
+  </div>
+</div>
+{% endblock %}

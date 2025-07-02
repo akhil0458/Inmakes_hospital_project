@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>My Bills</h2>
+        <a href="{% url 'patient_dashboard' %}" class="btn btn-secondary">← Back to Dashboard</a>
+    </div>
+
+    {% if bills %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Bill ID</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Payment Method</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bill in bills %}
+                <tr>
+                    <td>{{ bill.id }}</td>
+                    <td>{{ bill.date }}</td>
+                    <td>₹{{ bill.amount }}</td>
+                    <td>{{ bill.payment_method }}</td>
+                    <td>
+                        {% if bill.paid %}
+                            <span class="text-success">Paid</span>
+                        {% else %}
+                            <span class="text-danger">Unpaid</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not bill.paid %}
+                            <a href="{% url 'pay_bill' bill.id %}" class="btn btn-primary btn-sm">Pay</a>
+                        {% else %}
+                            <button class="btn btn-success btn-sm" disabled>Paid</button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No bills available.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Facility{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow rounded-4">
+                <div class="card-body">
+                    <h3 class="text-center mb-4">Edit Facility</h3>
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Facility Name</label>
+                            <input type="text" name="name" id="name" class="form-control" value="{{ facility.name }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Location</label>
+                            <input type="text" name="location" id="location" class="form-control" value="{{ facility.location }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="departments" class="form-label">Departments</label>
+                            <input type="text" name="departments" id="departments" class="form-control" value="{{ facility.departments }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="resources" class="form-label">Resources</label>
+                            <textarea name="resources" id="resources" class="form-control" rows="4" required>{{ facility.resources }}</textarea>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success rounded-pill">Update Facility</button>
+                        </div>
+                    </form>
+
+                    <div class="mt-3 text-center">
+                        <small><a href="{% url 'manage_facilities' %}">Back to Facility List</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

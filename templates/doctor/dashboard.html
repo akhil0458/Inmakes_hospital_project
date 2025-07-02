@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Welcome, Dr. {{ user.username }}!</h2>
+        <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{% static 'images/patient man.jpg' %}" class="card-img-top" alt="Doctor">
+                <div class="card-body">
+                    <h5 class="card-title">Patient Management</h5>
+                    <p class="card-text">Manage patient records, medical histories, and treatment plans.</p>
+                    <a href="{% url 'patient_management' %}" class="btn btn-primary">View Patients</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{% static 'images/appoin.jpg' %}" class="card-img-top" alt="Appointments">
+                <div class="card-body">
+                    <h5 class="card-title">Appointment Schedule</h5>
+                    <p class="card-text">View and manage your appointments efficiently.</p>
+                    <a href="{% url 'doctor_appointments' %}" class="btn btn-primary">View Appointments</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{% static 'images/pres.jpg' %}" class="card-img-top" alt="E-Prescribing">
+                <div class="card-body">
+                    <h5 class="card-title">E-Prescribing</h5>
+                    <p class="card-text">Create and manage electronic prescriptions for your patients.</p>
+                    <a href="{% url 'prescribe' %}" class="btn btn-primary">Create Prescription</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

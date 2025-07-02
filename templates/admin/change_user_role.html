@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h3>Change Role for {{ user.username }}</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="role" class="form-label">Select Role</label>
+            <select name="role" id="role" class="form-control">
+                <option value="Admin">Admin</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Patient">Patient</option>
+                <!-- Add more roles here as needed -->
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Change Role</button>
+    </form>
+</div>
+{% endblock %}

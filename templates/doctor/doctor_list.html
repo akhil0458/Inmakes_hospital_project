@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Doctor List</h2>
+
+    {% if doctors %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Specialization</th>
+                    <th>Available Days</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doctor in doctors %}
+                <tr>
+                    <td>{{ doctor.full_name }}</td>
+                    <td>{{ doctor.user.username }}</td>
+                    <td>{{ doctor.user.email }}</td>
+                    <td>{{ doctor.specialization }}</td>
+                    <td>{{ doctor.available_days }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No doctors available.</p>
+    {% endif %}
+
+    <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}

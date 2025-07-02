@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="text-primary">Doctor's Appointment Schedule</h2>
+    <a href="{% url 'doctor_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped shadow">
+      <thead class="table-primary">
+        <tr>
+          <th>Patient Name</th>
+          <th>Appointment Date</th>
+          <th>Time</th>
+          <th>Reason</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for appointment in appointments %}
+          <tr>
+            <td>{{ appointment.patient.full_name }}</td>
+            <td>{{ appointment.date }}</td>
+            <td>{{ appointment.time }}</td>
+            <td>{{ appointment.reason }}</td>
+            <td>
+              <span class="badge
+                {% if appointment.status == 'Confirmed' %}bg-success
+                {% elif appointment.status == 'Pending' %}bg-warning text-dark
+                {% elif appointment.status == 'Completed' %}bg-info
+                {% else %}bg-secondary{% endif %}">
+                {{ appointment.status }}
+              </span>
+            </td>
+            <td>
+              {% if appointment.status == 'Pending' %}
+                <form method="POST" action="{% url 'update_appointment_status' appointment.id %}" class="d-inline">
+                  {% csrf_token %}
+                  <input type="hidden" name="status" value="Confirmed">
+                  <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                </form>
+                <form method="POST" action="{% url 'update_appointment_status' appointment.id %}" class="d-inline">
+                  {% csrf_token %}
+                  <input type="hidden" name="status" value="Declined">
+                  <button type="submit" class="btn btn-danger btn-sm">Decline</button>
+                </form>
+              {% elif appointment.status == 'Confirmed' %}
+                <form method="POST" action="{% url 'update_appointment_status' appointment.id %}" class="d-inline">
+                  {% csrf_token %}
+                  <input type="hidden" name="status" value="Completed">
+                  <button type="submit" class="btn btn-info btn-sm">Mark as Completed</button>
+                </form>
+              {% else %}
+                <span class="text-muted">No action</span>
+              {% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="6" class="text-center">No appointments scheduled.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

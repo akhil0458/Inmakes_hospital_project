@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Medical Research - Sanjeevani Hospital{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center mb-4">
+    <h1 class="text-success">Medical Research</h1>
+    <p class="lead">Discover the latest medical advancements and research conducted at Sanjeevani Hospital.</p>
+  </div>
+
+  {% if research_list %}
+    <div class="row">
+      {% for research in research_list %}
+        <div class="col-md-6 mb-4">
+          <div class="card h-100 shadow-sm border-start border-3 border-success">
+            <div class="card-body">
+              <h5 class="card-title">{{ research.title }}</h5>
+              <h6 class="card-subtitle text-muted mb-2">Published on {{ research.date|date:"F j, Y" }}</h6>
+              <p class="card-text">{{ research.summary|truncatewords:40 }}</p>
+              
+              {% if research.document %}
+                <a href="{{ research.document.url }}" class="btn btn-outline-success btn-sm" target="_blank">
+                  View Full Paper (PDF)
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center">
+      No medical research publications are currently available.
+    </div>
+  {% endif %}
+
+  <div class="text-center mt-4">
+    <a href="{% url 'home' %}" class="btn btn-secondary">← Back to Home</a>
+  </div>
+</div>
+{% endblock %}

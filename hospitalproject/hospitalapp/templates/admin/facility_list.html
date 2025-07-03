@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Facility List</h2>
+<a href="{% url 'admin:facility_create' %}">Create New Facility</a>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Actions</th>
+    </tr>
+    {% for facility in facilities %}
+    <tr>
+        <td>{{ facility.name }}</td>
+        <td>{{ facility.location }}</td>
+        <td>
+            <a href="{% url 'admin:facility_edit' facility.id %}">Edit</a>
+            <a href="{% url 'admin:facility_delete' facility.id %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

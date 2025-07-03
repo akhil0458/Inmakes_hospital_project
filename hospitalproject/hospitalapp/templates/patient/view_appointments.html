@@ -1,0 +1,39 @@
+<!-- templates/patient/view_appointments.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Appointments for {{ patient.name }}</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Reason</th>
+            <th>Status</th>
+            <th>Actions</th>  <!-- New column for buttons -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.doctor.name }}</td>
+            <td>{{ appointment.date }}</td>
+            <td>{{ appointment.time }}</td>
+            <td>{{ appointment.reason }}</td>
+            <td>{{ appointment.status }}</td>
+            <td>
+                <a href="{% url 'create_bill' appointment.patient.id %}" class="btn btn-sm btn-success">Generate Bill</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">No appointments found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

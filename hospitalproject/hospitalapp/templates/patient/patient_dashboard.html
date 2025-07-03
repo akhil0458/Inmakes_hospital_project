@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+
+  <!-- Logout Button -->
+  <div class="d-flex justify-content-end mt-3">
+    <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+  </div>
+
+  {% if error %}
+    <div class="alert alert-danger mt-4">{{ error }}</div>
+  {% else %}
+    <h2 class="mt-4">Welcome, {{ patient.name }}</h2>
+
+    <!-- Book Appointment Button -->
+    <div class="mt-4">
+      <a href="{% url 'book_appointments' %}" class="btn btn-primary">Book Appointment</a>
+    </div>
+
+    <!-- Appointments -->
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header bg-primary text-white"><strong>Appointments</strong></div>
+          <div class="card-body">
+            {% if appointments %}
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Doctor</th>
+                      <th>Specialization</th>
+                      <th>Reason</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for appointment in appointments %}
+                      <tr>
+                        <td>{{ appointment.date }}</td>
+                        <td>{{ appointment.time }}</td>
+                        <td>Dr. {{ appointment.doctor.user.get_full_name|default:appointment.doctor.user.username }}</td>
+                        <td>{{ appointment.doctor.specialization|default:"N/A" }}</td>
+                        <td>{{ appointment.reason }}</td>
+                        <td>{{ appointment.status }}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <p class="text-muted">No appointments found.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medical History -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header bg-success text-white"><strong>Medical History</strong></div>
+          <div class="card-body">
+            {% if medical_history %}
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Date</th>
+                      <th>Doctor</th>
+                      <th>Treatment History</th>
+                      <th>Medications</th>
+                      <th>Allergies</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for record in medical_history %}
+                      <tr>
+                        <td>{{ record.date }}</td>
+                        <td>
+                          {% if record.doctor and record.doctor.user %}
+                            Dr. {{ record.doctor.user.get_full_name|default:record.doctor.user.username }}
+                          {% else %}
+                            <span class="text-muted">Unknown</span>
+                          {% endif %}
+                        </td>
+                        <td>{{ record.treatment_history|default:"N/A" }}</td>
+                        <td>{{ record.medications|default:"N/A" }}</td>
+                        <td>{{ record.allergies|default:"None" }}</td>
+                        <td class="d-flex gap-2">
+                          <a href="{% url 'view_medical_history' record.id %}" class="btn btn-secondary btn-sm">View</a>
+                          <a href="{% url 'delete_medical_history' record.id %}" class="btn btn-danger btn-sm"
+                             onclick="return confirm('Are you sure you want to delete this medical history record?');">Delete</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <p class="text-muted">No medical history available.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Billing Info -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow-sm mb-4">
+          <div class="card-header bg-warning text-dark"><strong>Billing Information</strong></div>
+          <div class="card-body">
+            {% if bills %}
+              <table class="table table-bordered">
+                <thead class="table-light">
+                  <tr>
+                    <th>Bill ID</th>
+                    <th>Amount</th>
+                    <th>Method</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for bill in bills %}
+                    {% if bill.patient.user == request.user %}
+                      <tr>
+                        <td>{{ bill.id }}</td>
+                        <td>₹{{ bill.amount }}</td>
+                        <td>{{ bill.payment_method|title }}</td>
+                        <td>
+                          {% if bill.paid %}
+                            <span class="badge bg-success">Paid</span>
+                          {% else %}
+                            <span class="badge bg-danger">Unpaid</span>
+                          {% endif %}
+                        </td>
+                        <td>{{ bill.date }}</td>
+                        <td class="d-flex gap-2">
+                          <a href="{% url 'view_bill' bill.id %}" class="btn btn-info btn-sm">View Bill</a>
+                          <a href="{% url 'pay_bill' bill.id %}" class="btn btn-success btn-sm">Pay Now</a>
+
+                        </td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% else %}
+              <p class="text-muted">No billing records found.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Health Education Resources -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow-sm">
+          <div class="card-header bg-info text-white"><strong>Health Education Resources</strong></div>
+          <div class="card-body">
+            {% if resources %}
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Topic</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for resource in resources %}
+                      <tr>
+                        <td>{{ resource.title }}</td>
+                        <td>
+                          <a href="{{ resource.link }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                            Read More
+                          </a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <p class="text-muted">No educational resources available at the moment.</p>
+            {% endif %}
+          </div>
+
+    </div>
+        <br/>
+    <!-- Prescriptions -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow-sm mb-4">
+          <div class="card-header bg-danger text-white"><strong>Prescriptions</strong></div>
+          <div class="card-body">
+            {% if prescriptions %}
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Date</th>
+                      <th>Doctor</th>
+                      <th>Diagnosis</th>
+                      <th>Medications</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for prescription in prescriptions %}
+                      <tr>
+                        <td>{{ prescription.date_issued }}</td>
+                        <td>
+                          {% if prescription.doctor and prescription.doctor.user %}
+                            Dr. {{ prescription.doctor.user.get_full_name|default:prescription.doctor.user.username }}
+                          {% else %}
+                            <span class="text-muted">Unknown</span>
+                          {% endif %}
+                        </td>
+                        <td>{{ prescription.diagnosis|truncatechars:50 }}</td>
+                        <td>{{ prescription.medications|truncatechars:50 }}</td>
+                        <td>
+                          <a href="{% url 'view_prescription' prescription.id %}" class="btn btn-sm btn-primary">
+                            View Prescription
+                          </a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <p class="text-muted">No prescriptions available.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% endif %}
+</div>
+{% endblock %}

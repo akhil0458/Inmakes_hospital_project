@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Health Bulletin - Sanjeevani Hospital{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center mb-5">
+    <h1 class="text-danger">Health Bulletin</h1>
+    <p class="lead">Important health updates and advisories from Sanjeevani Hospital</p>
+  </div>
+
+  {% if bulletins %}
+    <div class="row">
+      {% for bulletin in bulletins %}
+        <div class="col-md-6 mb-4">
+          <div class="card h-100 shadow-sm border-left border-3 border-info">
+            <div class="card-body">
+              <h5 class="card-title text-primary">{{ bulletin.title }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ bulletin.date|date:"F j, Y" }}</h6>
+              <p class="card-text">{{ bulletin.content|linebreaksbr|truncatewords:50 }}</p>
+              {% if bulletin.pdf %}
+                <a href="{{ bulletin.pdf.url }}" class="btn btn-outline-info btn-sm mt-2" target="_blank">
+                  Download PDF
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center">
+      No health bulletins available at the moment.
+    </div>
+  {% endif %}
+
+  <div class="text-center mt-4">
+    <a href="{% url 'home' %}" class="btn btn-secondary">← Back to Home</a>
+  </div>
+</div>
+{% endblock %}

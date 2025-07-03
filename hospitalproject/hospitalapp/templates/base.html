@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Hospitality</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <style>
+    footer {
+      background-color: #000000;
+    }
+
+    .footer-social a {
+      font-size: 1.2rem;
+      margin-left: 1rem;
+    }
+
+    .fa-facebook-f { color: #1877F2; }
+    .fa-twitter { color: #1DA1F2; }
+    .fa-instagram { color: #E1306C; }
+    .fa-linkedin-in { color: #0077B5; }
+    .fa-youtube { color: #FF0000; }
+  </style>
+</head>
+<body>
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="{% static 'images/hospital_logo.jpg' %}" alt="Logo" width="40" height="40" class="me-2">
+        <strong>SANJEEVANI Hospitals</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">
+                <i class="bi bi-house-door-fill"></i> Home
+              </a>
+           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="newsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">News</a>
+            <ul class="dropdown-menu" aria-labelledby="newsDropdown">
+              <li><a class="dropdown-item" href="{% url 'announcements' %}">Hospital Announcements</a></li>
+              <li><a class="dropdown-item" href="{% url 'health_bulletin' %}">Health Bulletins</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="researchDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Research</a>
+            <ul class="dropdown-menu" aria-labelledby="researchDropdown">
+              <li><a class="dropdown-item" href="{% url 'medical_research' %}">Medical Research</a></li>
+              <li><a class="dropdown-item" href="{% url 'publications' %}">Publications</a></li>
+            </ul>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">About Us</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">
+              <i class="bi bi-box-arrow-in-right"></i> Login
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="hospitalCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'images/img 1.jpg' %}" class="d-block w-100" alt="Slide 1">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Comprehensive Patient Care</h5>
+          <p>Your health, our priority.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/img 2.jpg' %}" class="d-block w-100" alt="Slide 2">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Doctor and Admin Integration</h5>
+          <p>Streamlined communication and management.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/img 3.jpg' %}" class="d-block w-100" alt="Slide 3">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Accessible Medical Records</h5>
+          <p>Empowering patients with knowledge and access.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#hospitalCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#hospitalCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <div class="container mt-4">
+    {% block content %}
+      <section class="py-5 bg-light">
+        <div class="container text-center">
+          <h2 class="mb-4 fw-bold text-primary">Our Specialities</h2>
+          <p class="mb-5 text-muted">Delivering expert care across a wide range of departments.</p>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                  <i class="fas fa-heartbeat fa-3x text-danger mb-3"></i>
+                  <h5 class="card-title">Cardiology</h5>
+                  <p class="card-text">Advanced heart care and diagnostics with expert cardiologists.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                  <i class="fas fa-brain fa-3x text-info mb-3"></i>
+                  <h5 class="card-title">Neurology</h5>
+                  <p class="card-text">Comprehensive neurological care and treatments for all ages.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                  <i class="fas fa-bone fa-3x text-warning mb-3"></i>
+                  <h5 class="card-title">Orthopaedics</h5>
+                  <p class="card-text">Trusted bone and joint care with innovative surgical techniques.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                  <i class="fas fa-baby fa-3x text-pink mb-3"></i>
+                  <h5 class="card-title">Pediatrics</h5>
+                  <p class="card-text">Gentle, specialized care for infants, children, and adolescents.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                  <i class="fas fa-x-ray fa-3x text-secondary mb-3"></i>
+                  <h5 class="card-title">Radiology</h5>
+                  <p class="card-text">Cutting-edge imaging technologies for fast and accurate diagnosis.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                  <i class="fas fa-stethoscope fa-3x text-success mb-3"></i>
+                  <h5 class="card-title">General Medicine</h5>
+                  <p class="card-text">Routine checkups, diagnosis, and personalized treatment plans.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+    {% endblock %}
+  </div>
+
+  <!-- Footer -->
+  <footer class="d-flex flex-column flex-md-row justify-content-between align-items-center text-white py-3 px-4 mt-auto">
+    <small class="text-white">&copy; 2025 Sanjeevani Hospital. All rights reserved.</small>
+
+    <div class="footer-social mt-3 mt-md-0">
+      <a href="https://facebook.com" target="_blank">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://twitter.com" target="_blank">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://instagram.com" target="_blank">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://linkedin.com" target="_blank">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="https://youtube.com" target="_blank">
+        <i class="fab fa-youtube"></i>
+      </a>
+    </div>
+  </footer>
+
+
+  {% if show_modal %}
+<script>
+  const notificationModal = new bootstrap.Modal(document.getElementById('notificationModal'));
+  notificationModal.show();
+</script>
+{% endif %}
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-{{ modal_type|default:"primary" }} text-white">
+        <h5 class="modal-title" id="notificationModalLabel">{{ modal_title|default:"Notification" }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+      <div class="modal-body">
+        {{ modal_message|default:"Something happened." }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-{{ modal_type|default:"primary" }}" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-3" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
+{% endif %}
+</html>

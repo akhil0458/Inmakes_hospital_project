@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Prescribe Medication</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+            <label for="id_patient">Patient</label>
+            {{ form.patient }}
+        </div>
+        <div class="form-group mb-3">
+            <label for="id_medication_name">Medication Name</label>
+            {{ form.medication_name }}
+        </div>
+        <div class="form-group mb-3">
+            <label for="id_dosage">Dosage</label>
+            {{ form.dosage }}
+        </div>
+        <div class="form-group mb-3">
+            <label for="id_frequency">Frequency</label>
+            {{ form.frequency }}
+        </div>
+        <div class="form-group mb-3">
+            <label for="id_duration">Duration</label>
+            {{ form.duration }}
+        </div>
+        <div class="form-group mb-3">
+            <label for="id_notes">Notes</label>
+            {{ form.notes }}
+        </div>
+        <button type="submit" class="btn btn-success">Prescribe</button>
+        <a href="{% url 'doctor_dashboard' %}" class="btn btn-secondary ms-2">Back to Dashboard</a>
+    </form>
+</div>
+{% endblock %}

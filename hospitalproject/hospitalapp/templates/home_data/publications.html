@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Publications - Sanjeevani Hospital{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center mb-5">
+    <h1 class="text-primary">Hospital Publications</h1>
+    <p class="lead">Explore our official journals, newsletters, and health awareness publications.</p>
+  </div>
+
+  {% if publications %}
+    <div class="row">
+      {% for pub in publications %}
+        <div class="col-md-6 mb-4">
+          <div class="card h-100 shadow-sm border-start border-3 border-primary">
+            <div class="card-body">
+              <h5 class="card-title">{{ pub.title }}</h5>
+              <h6 class="text-muted">Published on {{ pub.date|date:"F j, Y" }}</h6>
+              <p class="card-text">{{ pub.description|truncatewords:30 }}</p>
+              
+              {% if pub.file %}
+                <a href="{{ pub.file.url }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                  View / Download
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center">
+      No publications available at the moment.
+    </div>
+  {% endif %}
+
+  <div class="text-center mt-4">
+    <a href="{% url 'home' %}" class="btn btn-secondary">← Back to home</a>
+  </div>
+</div>
+{% endblock %}

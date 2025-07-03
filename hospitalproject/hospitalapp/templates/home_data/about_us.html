@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About Us - Sanjeevani Hospital{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center mb-5">
+    <h1 class="display-4 text-primary">About Sanjeevani Hospital</h1>
+    <p class="lead">Compassionate care. Advanced medicine. Trusted by generations.</p>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col-md-6">
+      <img src="{% static 'images/hos.jpg' %}" class="img-fluid rounded shadow" alt="Hospital Building">
+    </div>
+    <div class="col-md-6">
+      <h3 class="text-success">Our Mission</h3>
+      <p>
+        At Sanjeevani Hospital, our mission is to deliver quality healthcare with empathy and professionalism. We are dedicated to healing and enhancing lives by providing state-of-the-art medical services, compassionate patient care, and a commitment to innovation.
+      </p>
+
+      <h3 class="text-success mt-4">Our Vision</h3>
+      <p>
+        To be the most trusted healthcare provider in the region, empowering healthier communities through excellence in clinical care, education, and medical research.
+      </p>
+    </div>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-md-4">
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h4 class="text-primary">24/7 Emergency</h4>
+          <p>Always ready to handle critical cases with rapid response teams and modern emergency care units.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h4 class="text-primary">Experienced Doctors</h4>
+          <p>Our team includes highly qualified specialists and surgeons from across India with decades of experience.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h4 class="text-primary">Modern Infrastructure</h4>
+          <p>Equipped with advanced diagnostic tools, modular operation theatres, and world-class patient rooms.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <h4 class="text-muted">"Healing is our mission. Humanity is our cause."</h4>
+    <p class="mt-3">Visit us today and experience the care you deserve.</p>
+    <a href="{% url 'contact' %}" class="btn btn-outline-primary">Contact Us</a>
+  </div>
+</div>
+
+<!-- Mission and Vision Section (Full Width) -->
+<div class="row bg-light py-5">
+  <div class="col-md-6 text-center px-4">
+    <h3 class="text-success">Our Mission</h3>
+    <p>
+      To deliver quality healthcare with empathy and professionalism. We are dedicated to healing and enhancing lives by providing state-of-the-art medical services, compassionate patient care, and a commitment to innovation.
+    </p>
+  </div>
+  <div class="col-md-6 text-center px-4">
+    <h3 class="text-success">Our Vision</h3>
+    <p>
+      To be the most trusted healthcare provider in the region, empowering healthier communities through excellence in clinical care, education, and medical research.
+    </p>
+  </div>
+</div>
+{% endblock %}

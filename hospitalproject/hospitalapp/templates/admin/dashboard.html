@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Admin Dashboard</h2>
+
+    <div class="d-grid gap-3 d-md-block">
+        <a href="{% url 'manage_users' %}" class="btn btn-primary mb-2">Manage Users</a>
+        <a href="{% url 'manage_facilities' %}" class="btn btn-secondary mb-2">Manage Facilities</a>
+        <a href="{% url 'manage_appointments' %}" class="btn btn-secondary mb-2">Manage Appointments</a>
+        <a href="{% url 'doctor_list' %}" class="btn btn-secondary mb-2">Doctor List</a>
+        <a href="{% url 'manage_resources' %}" class="btn btn-info mb-2">Manage Health Resources</a>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}" class="mt-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
+</div>
+{% endblock %}

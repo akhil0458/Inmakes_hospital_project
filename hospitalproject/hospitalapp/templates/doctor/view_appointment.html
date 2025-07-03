@@ -1,0 +1,41 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Appointment Schedule</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Patient Name</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ appointment.date }}</td>
+                        <td>{{ appointment.patient_name }}</td>
+                        <td>{{ appointment.time }}</td>
+                        <td>{{ appointment.status }}</td>
+                        <td>
+                            <a href="{% url 'view_appointment' appointment.id %}" class="btn btn-info">View</a>
+                            <a href="{% url 'cancel_appointment' appointment.id %}" class="btn btn-danger">Cancel</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">No appointments available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

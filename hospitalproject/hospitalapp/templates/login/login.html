@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow rounded-4">
+                <div class="card-body">
+                    <h3 class="text-center mb-4">Login</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if form %}
+                            {% for field in form %}
+                                <div class="mb-3">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {% if field.errors %}
+                                        <div class="text-danger small">{{ field.errors|striptags }}</div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <!-- If you're using manual input fields instead of Django form -->
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" name="username" id="username" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" name="password" id="password" class="form-control" required>
+                            </div>
+                        {% endif %}
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary rounded-pill">Login</button>
+                        </div>
+                    </form>
+                    <div class="mt-3 text-center">
+                        <small>Don't have an account? <a href="{% url 'register' %}">Register here</a>.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

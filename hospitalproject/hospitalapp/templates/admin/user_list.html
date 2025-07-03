@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <h2>User Management</h2>
+    <a href="{% url 'add_user' %}" class="btn btn-primary mb-3">Add User</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <form method="POST" action="{% url 'change_role' user.id %}">
+                        {% csrf_token %}
+                        <div class="d-flex align-items-center">
+                            <select name="role" class="form-select form-select-sm me-2">
+                                <option value="admin" {% if user.profile.role == "admin" %}selected{% endif %}>Admin</option>
+                                <option value="doctor" {% if user.profile.role == "doctor" %}selected{% endif %}>Doctor</option>
+                                <option value="patient" {% if user.profile.role == "patient" %}selected{% endif %}>Patient</option>
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-secondary">Change</button>
+                        </div>
+                    </form>
+                </td>
+                <td>
+                    <a href="{% url 'delete_user' user.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1 class="mb-4">Patient Details: {{ patient.user.username }}</h1>
+
+  <p><strong>Email:</strong> {{ patient.user.email }}</p>
+  <p><strong>Age:</strong> {{ patient.age }}</p>
+  <p><strong>Gender:</strong> {{ patient.gender }}</p>
+  <p><strong>Address:</strong> {{ patient.address }}</p>
+
+  <div class="mt-4 d-flex justify-content-start gap-2">
+    <a href="{% url 'patient_appointments' patient_id=patient.id %}" class="btn btn-info">View Appointments</a>
+    <a href="{% url 'patient_management' %}" class="btn btn-secondary">Back to Patient Management</a>
+  </div>
+</div>
+{% endblock %}
